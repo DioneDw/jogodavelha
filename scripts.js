@@ -39,6 +39,12 @@ function checkEl(player1,player2){
 function contTurn(){
   if(player1==player2){
     player1++
+
+    if(secondPlayer == 'vs-ia'){
+      iaPlay()
+      player2++
+    }
+
    }else{
     player2++
    }
@@ -62,9 +68,9 @@ if(b1.childNodes.length > 0 && b2.childNodes.length > 0 && b3.childNodes.length 
   let b2Child = b2.childNodes[0].className
   let b3Child = b3.childNodes[0].className
 if(b1Child == 'x' && b2Child == 'x' && b3Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b1Child == 'o' && b2Child == 'o' && b3Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -74,9 +80,9 @@ if(b4.childNodes.length > 0 && b5.childNodes.length > 0 && b6.childNodes.length 
   let b5Child = b5.childNodes[0].className
   let b6Child = b6.childNodes[0].className
 if(b4Child == 'x' && b5Child == 'x' && b6Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b4Child == 'o' && b5Child == 'o' && b6Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -86,9 +92,9 @@ if(b7.childNodes.length > 0 && b8.childNodes.length > 0 && b9.childNodes.length 
   let b8Child = b8.childNodes[0].className
   let b9Child = b9.childNodes[0].className
 if(b7Child == 'x' && b8Child == 'x' && b9Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b7Child == 'o' && b8Child == 'o' && b9Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -98,9 +104,9 @@ if(b1.childNodes.length > 0 && b4.childNodes.length > 0 && b7.childNodes.length 
   let b4Child = b4.childNodes[0].className
   let b7Child = b7.childNodes[0].className
 if(b1Child == 'x' && b4Child == 'x' && b7Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b1Child == 'o' && b4Child == 'o' && b7Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -110,9 +116,9 @@ if(b2.childNodes.length > 0 && b5.childNodes.length > 0 && b8.childNodes.length 
   let b5Child = b5.childNodes[0].className
   let b8Child = b8.childNodes[0].className
 if(b2Child == 'x' && b5Child == 'x' && b8Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b2Child == 'o' && b5Child == 'o' && b8Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -122,9 +128,9 @@ if(b3.childNodes.length > 0 && b6.childNodes.length > 0 && b9.childNodes.length 
   let b6Child = b6.childNodes[0].className
   let b9Child = b9.childNodes[0].className
 if(b3Child == 'x' && b6Child == 'x' && b9Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b3Child == 'o' && b6Child == 'o' && b9Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -134,9 +140,9 @@ if(b1.childNodes.length > 0 && b5.childNodes.length > 0 && b9.childNodes.length 
   let b5Child = b5.childNodes[0].className
   let b9Child = b9.childNodes[0].className
 if(b1Child == 'x' && b5Child == 'x' && b9Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b1Child == 'o' && b5Child == 'o' && b9Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
@@ -146,10 +152,108 @@ if(b3.childNodes.length > 0 && b5.childNodes.length > 0 && b7.childNodes.length 
   let b5Child = b5.childNodes[0].className
   let b7Child = b7.childNodes[0].className
 if(b3Child == 'x' && b5Child == 'x' && b7Child == 'x'){
-  console.log("O jogador 1 venceu.")
+  declareWinner('x')
 }else if(b3Child == 'o' && b5Child == 'o' && b7Child == 'o'){
-  console.log('O jogador 2 venceu.')
+  declareWinner('o')
 }
 }
 
+// Verificando se deu velha.
+
+let contador= 0;
+
+for(let i = 0; i< boxes.length; i++){
+  if(boxes[i].childNodes[0] != undefined){
+    contador++
+  }
 }
+
+if(contador == 9){
+  declareWinner()
+}
+
+}
+
+
+// clear table, declare winner and update points.
+
+function declareWinner(winner){
+  let scoreboard1 = document.querySelector('#scoreboard-1')
+  let scoreboard2 = document.querySelector('#scoreboard-2')
+
+  let msg = '';
+
+  if(winner == 'x'){
+    scoreboard1.textContent=parseInt(scoreboard1.textContent) +1;
+    msg= "O jogador 1 venceu!";
+  } else if(winner == 'o'){
+    scoreboard2.textContent=parseInt(scoreboard2.textContent) +1;
+    msg= "O jogador 2 venceu!";
+  } else {
+    msg= "Deu velha!";
+  }
+
+// show message 
+messageText.innerHTML = msg;
+messageContainer.classList.remove("hide")
+
+// hide message
+setTimeout(function(){
+  messageContainer.classList.add("hide")
+},3000)
+
+// clear cont moves
+player1=0;
+player2=0;
+
+// clear spaces
+let boxesToRemove = document.querySelectorAll('.box div');
+
+for(let i = 0; i<boxesToRemove.length; i++){
+ boxesToRemove[i].parentNode.removeChild(boxesToRemove[i])
+}
+
+}
+
+// Event choice game mode
+for (let i=0; i <buttons.length;i ++){
+  buttons[i].addEventListener('click',function(){
+    secondPlayer = this.getAttribute("id");
+
+    for(let j = 0; j< buttons.length; j++){
+      buttons[j].style.display= 'none';
+    }
+   
+    setTimeout(function(){
+      let container = document.querySelector('#container')
+      container.classList.remove('hide')
+    },500)
+
+  })
+}
+
+function iaPlay(){
+let cloneO = o.cloneNode(true)
+counter = 0;
+filled = 0; // prenchido
+
+for(let i = 0; i <boxes.length; i++){
+  let randomNumber = Math.floor(Math.random() * 5);
+
+  if(boxes[i].childNodes[0] == undefined){
+     if(randomNumber <= 1){
+      boxes[i].appendChild(cloneO);
+      counter++;
+      break;
+     }
+    } else {
+      filled++
+     }
+  }
+
+
+if(counter == 0 && filled < 9){
+  iaPlay()
+}
+}
+

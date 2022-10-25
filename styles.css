@@ -65,9 +65,9 @@ line-height: 100px;
 
 /* class de hide */
 
-/* .hide {
+.hide {
   display: none !important;
-*/
+}
 
 /*placar */
 
@@ -111,7 +111,6 @@ line-height: 100px;
   background-color: black;
   color: #fff;
   padding: 20px;
-  display: none;
 }
 
 
